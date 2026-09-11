@@ -1,0 +1,10 @@
+@import './css/theme.css';
+@import './fonts/icons/tabler-icons/tabler-icons.css';
+@import './style.css';
+
+#sidebarnav .sidebar-item .sidebar-link.active {
+  color: '#006aaf';
+}
+#sidebarnav .sidebar-item .sidebar-link.active::before {
+  width: calc(100% + 16px);
+}
