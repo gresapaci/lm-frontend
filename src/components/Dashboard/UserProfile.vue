@@ -93,8 +93,8 @@ const profileSchema = yup.object({
     .number()
     .typeError('Academic year must be a number!')
     .integer()
-    .min(new Date().getFullYear() - 80)
-    .max(new Date().getFullYear())
+    .min(1)
+    .max(6)
     .nullable(true),
   date_of_birth: yup
     .mixed()
@@ -105,16 +105,8 @@ const profileSchema = yup.object({
   about: yup.string().max(1000),
 })
 
-// Academic year options
-const academicYearOptions = computed(() => {
-  const currentYear = new Date().getFullYear()
-  const years = []
-  for (let i = 0; i < 10; i++) {
-    years.push(currentYear - i)
-  }
-
-  return years
-})
+// Academic year options (year of study, e.g. 1st-6th year)
+const academicYearOptions = computed(() => [1, 2, 3, 4, 5, 6])
 
 const formatDisplayDate = (date) => {
   if (!date) return ''

@@ -1,7 +1,6 @@
 <script setup>
 import DashboardSidebar from '@/components/Dashboard/General/DashboardSidebar.vue'
 import DashboardHeader from '@/components/Dashboard/General/DashboardHeader.vue'
-import DashboardFooter from '@/components/Dashboard/General/DashboardFooter.vue'
 </script>
 <template>
   <main>
@@ -20,9 +19,6 @@ import DashboardFooter from '@/components/Dashboard/General/DashboardFooter.vue'
             <!--  Header End -->
             <!-- here we must insert the content of the page -->
             <router-view />
-            <!-- Footer -->
-            <DashboardFooter />
-            <!-- End Footer -->
           </div>
         </main>
         <!-- Main Content End -->

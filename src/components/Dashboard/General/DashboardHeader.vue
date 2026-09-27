@@ -2,9 +2,11 @@
 import { computed, ref } from 'vue'
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
 import { useUserStore } from '@/stores/useUserStore'
+import { useThemeStore } from '@/stores/useThemeStore'
 import { getProfileImageUrl } from '@/utils/backendHelper'
 
 const userStore = useUserStore()
+const themeStore = useThemeStore()
 const isLoggingOut = ref(false)
 
 const handleLogout = async () => {
@@ -97,6 +99,14 @@ const userProfileImage = computed(() => {
         </li>
       </ul>
       <div class="flex items-center gap-4">
+        <button
+          type="button"
+          @click="themeStore.toggleTheme"
+          class="flex items-center justify-center w-9 h-9 rounded-full text-gray-400 hover:text-gray-600 hover:bg-gray-100 dark:hover:bg-white/10 transition-colors"
+          :aria-label="themeStore.isDark ? 'Switch to light mode' : 'Switch to dark mode'"
+        >
+          <i :class="['ti text-xl', themeStore.isDark ? 'ti-sun' : 'ti-moon']"></i>
+        </button>
         <a href="#" class="btn text-base font-medium hover:bg-blue-700" aria-current="page">{{
           userStore.userFullName
         }}</a>

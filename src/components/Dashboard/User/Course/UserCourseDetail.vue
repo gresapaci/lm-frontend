@@ -73,14 +73,14 @@ const formatDate = (dateString) => {
   return `${month}/${year}`
 }
 
-const formatDuration = (minutes) => {
-  if (!minutes) return '00:00'
-  const hours = Math.floor(minutes / 60)
-  const mins = minutes % 60
+const formatDuration = (totalMinutes) => {
+  if (!totalMinutes) return '0 min'
+  const hours = Math.floor(totalMinutes / 60)
+  const mins = totalMinutes % 60
   if (hours > 0) {
-    return `${hours}:${mins.toString().padStart(2, '0')}`
+    return mins > 0 ? `${hours}h ${mins}min` : `${hours}h`
   }
-  return `${mins.toString().padStart(2, '0')}:00`
+  return `${mins} min`
 }
 
 const toggleModule = (index) => {
@@ -242,9 +242,7 @@ const handleContinueCourse = () => {
 
             <div class="flex items-center gap-3 pl-16">
               <img :src="movieLineIcon" alt="Duration" class="w-5 h-5" />
-              <p class="text-gray-800">
-                {{ formatDuration(course.duration) }} minutes total length
-              </p>
+              <p class="text-gray-800">{{ formatDuration(course.duration) }} total length</p>
             </div>
           </div>
 
@@ -282,7 +280,7 @@ const handleContinueCourse = () => {
                 </div>
                 <p class="text-gray-600 text-sm">
                   {{ module.total_sections }} Sections -
-                  {{ formatDuration(module.duration) }} minutes
+                  {{ formatDuration(module.duration) }}
                 </p>
               </div>
               <!-- Module Sections (Expanded Content) -->
@@ -315,7 +313,7 @@ const handleContinueCourse = () => {
                     <p class="text-gray-800">{{ section.title }}</p>
                   </div>
                   <p class="text-gray-600 text-sm">
-                    {{ formatDuration(section.duration) }} minutes
+                    {{ formatDuration(section.duration) }}
                   </p>
                 </div>
               </div>

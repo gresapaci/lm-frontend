@@ -15,31 +15,6 @@ const error = ref(null)
 const modules = ref([])
 const expanded = ref([])
 
-const formatDurationForDisplay = (durationString) => {
-  if (!durationString || durationString === '00:00') return '00:00'
-
-  const parts = durationString.split(':')
-  let hours = 0
-  let minutes = 0
-  let seconds = 0
-
-  if (parts.length === 3) {
-    // 12:12:12
-    hours = parseInt(parts[0]) || 0
-    minutes = parseInt(parts[1]) || 0
-    seconds = parseInt(parts[2]) || 0
-  } else if (parts.length === 2) {
-    // 12:12
-    minutes = parseInt(parts[0]) || 0
-    seconds = parseInt(parts[1]) || 0
-  }
-
-  // convert to total minutes
-  const totalMinutes = hours * 60 + minutes + (seconds > 0 ? 1 : 0) // Round up if seconds > 0
-
-  return `${totalMinutes.toString().padStart(2, '0')}:${(seconds % 60).toString().padStart(2, '0')}`
-}
-
 const handleStartModule = (moduleId) => {
   if (modules?.value?.modules) {
     const module = modules.value.modules.find((m) => m.id === moduleId)
@@ -205,8 +180,7 @@ onMounted(() => {
                 </div>
                 <div class="flex items-center gap-4">
                   <p class="text-black text-sm whitespace-nowrap">
-                    {{ mod.total_sections }} Sections -
-                    {{ formatDurationForDisplay(mod.formatted_duration) }} Minutes
+                    {{ mod.total_sections }} Sections - {{ mod.formatted_duration }}
                   </p>
 
                   <!-- Progress Percentage with Circular Indicator -->
@@ -312,7 +286,7 @@ onMounted(() => {
 
                     <!-- Duration -->
                     <p class="text-gray-500 text-sm whitespace-nowrap">
-                      {{ formatDurationForDisplay(section.duration) }}
+                      {{ section.duration }}
                     </p>
 
                     <!-- Completion Checkmark -->

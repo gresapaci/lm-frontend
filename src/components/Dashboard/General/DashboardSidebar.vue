@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import AdminSidebar from '@/components/Dashboard/General/AdminSidebar.vue'
+import InstructorSidebar from '@/components/Dashboard/General/InstructorSidebar.vue'
 import UserSidebar from '@/components/Dashboard/General/UserSidebar.vue'
 import { useUserStore } from '@/stores/useUserStore'
 
@@ -15,6 +16,7 @@ const userStore = useUserStore()
     <!-- Start Vertical Layout Sidebar -->
     <!-- ---------------------------------- -->
     <AdminSidebar v-if="userStore.isAdmin" />
+    <InstructorSidebar v-if="userStore.isInstructor" />
     <UserSidebar v-if="userStore.isUser" />
     <!-- </aside> -->
   </aside>

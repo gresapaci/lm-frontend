@@ -98,16 +98,16 @@ const handlePerPageChange = () => {
 <template>
   <div class="card">
     <div class="card-body">
-      <div class="flex justify-between items-center mb-6">
+      <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-6">
         <h6 class="text-lg text-gray-500 font-semibold">{{ title }}</h6>
-        <div class="flex items-center gap-3">
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
           <div class="relative">
             <input
               type="text"
               v-model="searchTerm"
               :placeholder="searchPlaceholder"
               @input="handleSearch"
-              class="w-64 px-4 py-2 pl-10 pr-4 text-sm border border-gray-300 rounded-full shadow-md focus:ring-2 focus:ring-blue-500 focus:border-transparent focus:shadow-lg transition-shadow"
+              class="w-full sm:w-64 px-4 py-2 pl-10 pr-4 text-sm border border-gray-300 rounded-full shadow-md focus:ring-2 focus:ring-blue-500 focus:border-transparent focus:shadow-lg transition-shadow"
             />
             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
               <svg
@@ -188,7 +188,10 @@ const handlePerPageChange = () => {
       </div>
 
       <!-- Pagination -->
-      <div v-if="!loading && !error && pagination" class="flex items-center justify-between mt-6">
+      <div
+        v-if="!loading && !error && pagination"
+        class="flex flex-wrap items-center justify-between gap-3 mt-6"
+      >
         <div class="flex items-center space-x-4">
           <span>
             <span>{{ pagination.from || 0 }}</span

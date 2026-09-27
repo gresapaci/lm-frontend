@@ -1,4 +1,6 @@
-@import './css/theme.css';
+@layer theme, base, legacy, components, utilities;
+
+@import './css/theme.css' layer(legacy);
 @import './fonts/icons/tabler-icons/tabler-icons.css';
 @import './style.css';
 
@@ -7,4 +9,137 @@
 }
 #sidebarnav .sidebar-item .sidebar-link.active::before {
   width: calc(100% + 16px);
+}
+
+/* ============================================================
+   Dark mode (toggled by adding the `dark` class on <html>)
+   Written unlayered so it always wins over the legacy/utilities
+   layers, and !important throughout so it also wins ties against
+   component-scoped <style> blocks that define the same classes
+   (those load after this file and would otherwise win on source
+   order despite equal specificity).
+   ============================================================ */
+.dark {
+  color-scheme: dark;
+}
+
+.dark body {
+  background-color: #0f172a !important;
+  color: #e2e8f0 !important;
+}
+
+.dark .bg-surface,
+.dark .bg-\[\#f0f5f9\] {
+  background-color: #0f172a !important;
+}
+
+.dark .bg-white,
+.dark .card,
+.dark .left-sidebar,
+.dark .hs-dropdown-menu {
+  background-color: #1e293b !important;
+}
+
+.dark .bg-gray-50,
+.dark .bg-gray-100,
+.dark .bg-gray-200 {
+  background-color: #263449 !important;
+}
+
+.dark a.hover\:bg-gray-200:hover,
+.dark button.hover\:bg-gray-200:hover,
+.dark .hover\:bg-gray-100:hover,
+.dark .hover\:bg-gray-50:hover {
+  background-color: #263449 !important;
+}
+
+.dark .text-gray-900,
+.dark .text-gray-800,
+.dark .text-gray-700,
+.dark .text-black,
+.dark .text-textPrimary,
+.dark h1,
+.dark h2,
+.dark h3,
+.dark h4,
+.dark h5,
+.dark h6 {
+  color: #ffffff !important;
+}
+
+.dark .text-gray-600,
+.dark .text-gray-500 {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.dark .text-gray-400,
+.dark .text-gray-300 {
+  color: rgba(255, 255, 255, 0.65) !important;
+}
+
+.dark .border,
+.dark .border-t,
+.dark .border-b,
+.dark .border-b-4,
+.dark .border-gray-100,
+.dark .border-gray-200,
+.dark .border-gray-300,
+.dark table,
+.dark thead,
+.dark tbody,
+.dark tr {
+  border-color: #334155 !important;
+}
+
+.dark .divide-gray-200 > :not([hidden]) ~ :not([hidden]) {
+  border-color: #334155 !important;
+}
+
+.dark input,
+.dark textarea,
+.dark select {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+  color: #e2e8f0 !important;
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #64748b !important;
+}
+
+.dark .shadow-md,
+.dark .shadow-lg,
+.dark .shadow-xl,
+.dark .shadow-sm,
+.dark .shadow-2xl {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45) !important;
+}
+
+.dark .bg-gray-900\/50 {
+  background-color: rgba(0, 0, 0, 0.7) !important;
+}
+
+.dark .quick-action-btn {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+}
+
+.dark .quick-action-btn i {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.dark .quick-action-btn span {
+  color: #ffffff !important;
+}
+
+/* Sidebar active/hover nav item: swap the light-mode pill for a
+   dark-friendly tint so the (forced-white) label stays readable. */
+.dark .sidebar-item .sidebar-link::before {
+  background-color: rgba(0, 133, 219, 0.2) !important;
+}
+
+.dark .sidebar-item .sidebar-link.active,
+.dark .sidebar-item .sidebar-link:hover {
+  color: #7cc4f2 !important;
 }

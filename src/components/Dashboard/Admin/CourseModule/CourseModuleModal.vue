@@ -150,7 +150,7 @@ onMounted(() => {
 <template>
   <div
     v-if="isOpen"
-    class="fixed inset-0 z-[9999] flex items-center justify-center bg-black bg-opacity-50"
+    class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50"
     @click="handleBackdropClick"
   >
     <div

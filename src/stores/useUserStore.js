@@ -25,12 +25,20 @@ export const useUserStore = defineStore('user', () => {
         return userRole.value === 'Admin'
     })
 
+    const isInstructor = computed(() => {
+        return userRole.value === 'Instructor'
+    })
+
     const isUser = computed(() => {
         return userRole.value === 'User'
     })
 
     const hasRole = computed(() => {
         return (role) => userRole.value === role
+    })
+
+    const hasAnyRole = computed(() => {
+        return (roles) => roles.includes(userRole.value)
     })
 
     function setLoading(loading) {
@@ -91,8 +99,10 @@ export const useUserStore = defineStore('user', () => {
         userFullName,
         userRole,
         isAdmin,
+        isInstructor,
         isUser,
         hasRole,
+        hasAnyRole,
 
         // actions
         setUser,

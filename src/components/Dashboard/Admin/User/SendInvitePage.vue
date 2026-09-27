@@ -14,6 +14,7 @@ const results = ref({
   success: { count: 0, emails: [] },
   invalid: { count: 0, emails: [] },
   existing: { count: 0, emails: [] },
+  failed: { count: 0, emails: [] },
 })
 
 const clearResults = () => {
@@ -23,6 +24,7 @@ const clearResults = () => {
     success: { count: 0, emails: [] },
     invalid: { count: 0, emails: [] },
     existing: { count: 0, emails: [] },
+    failed: { count: 0, emails: [] },
   }
 }
 
@@ -39,23 +41,34 @@ const handleSubmit = async () => {
 
     if (response.status === 200) {
       console.log('response', response)
-      toast.success('Invite email sent successfully')
 
       const result = response.data
+
+      if (result.success_count > 0) {
+        toast.success('Invite email sent successfully')
+      }
 
       results.value = {
         success: {
           count: result.success_count || 0,
-          emails: result.successfully_invited ? result.successfully_invited.split(' ,') : [],
+          emails: result.successfully_invited ? result.successfully_invited.split(', ') : [],
         },
         invalid: {
           count: result.invalid_count || 0,
-          emails: result.invalid_emails ? result.invalid_emails.split(' ,') : [],
+          emails: result.invalid_emails ? result.invalid_emails.split(', ') : [],
         },
         existing: {
           count: result.existing_count || 0,
-          emails: result.existing_users ? result.existing_users.split(' ,') : [],
+          emails: result.existing_users ? result.existing_users.split(', ') : [],
         },
+        failed: {
+          count: result.failed_count || 0,
+          emails: result.failed_emails ? result.failed_emails.split(', ') : [],
+        },
+      }
+
+      if (result.failed_count > 0) {
+        toast.error(`${result.failed_count} invite(s) could not be sent. Please try again.`)
       }
 
       showResults.value = true
@@ -121,7 +134,7 @@ const handleSubmit = async () => {
             </button>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             <div class="border border-gray-200 rounded-lg p-4 bg-white">
               <div class="mb-3">
                 <h4 class="text-sm font-semibold text-gray-900 mb-1">Success Send</h4>
@@ -171,6 +184,23 @@ const handleSubmit = async () => {
                 </div>
               </div>
               <div v-else class="text-xs italic text-gray-400">No existing invitations</div>
+            </div>
+
+            <div class="border border-gray-200 rounded-lg p-4 bg-white">
+              <div class="mb-3">
+                <h4 class="text-sm font-semibold text-gray-900 mb-1">Failed Send</h4>
+                <p class="text-xs text-gray-500">{{ results.failed.count }} invitation(s)</p>
+              </div>
+              <div v-if="results.failed.emails.length > 0" class="space-y-1">
+                <div
+                  v-for="email in results.failed.emails"
+                  :key="email"
+                  class="text-xs text-gray-600 bg-gray-50 px-2 py-1 rounded border"
+                >
+                  {{ email }}
+                </div>
+              </div>
+              <div v-else class="text-xs italic text-gray-400">No failed invitations</div>
             </div>
           </div>
         </div>

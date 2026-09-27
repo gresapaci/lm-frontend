@@ -469,7 +469,7 @@ watch([title, () => props.materialId], () => {
 <template>
   <div
     v-if="isOpen"
-    class="fixed inset-0 z-[9999] flex items-center justify-center bg-black bg-opacity-50 !mt-0"
+    class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 !mt-0"
     @click="handleBackdropClick"
   >
     <div
@@ -593,7 +593,7 @@ watch([title, () => props.materialId], () => {
                 :disabled="
                   loading || (!isEditMode && !selectedType) || progress > 0 || fetchingMaterial
                 "
-                class="px-8 py-2 rounded bg-green-500 bg-opacity-70 text-white font-medium hover:bg-opacity-80 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                class="px-8 py-2 rounded bg-green-500/70 text-white font-medium hover:bg-green-500/80 transition disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {{
                   loading

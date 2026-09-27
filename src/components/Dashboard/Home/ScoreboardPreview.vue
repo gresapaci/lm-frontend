@@ -16,6 +16,10 @@ defineProps({
     type: Boolean,
     required: true
   },
+  isInstructor: {
+    type: Boolean,
+    default: false
+  },
   isUser: {
     type: Boolean,
     required: true
@@ -48,11 +52,11 @@ const openUserProfile = (userId) => {
 <template>
   <div class="card h-full">
     <div class="card-body">
-      <div class="flex items-center justify-between mb-5">
+      <div class="flex items-center justify-between flex-wrap gap-2 mb-5">
         <h4 class="text-gray-500 text-lg font-semibold">Top Scoreboard</h4>
         <router-link
-          :to="{ name: isAdmin ? 'AdminScoreboardViewPage' : 'UserScoreboardViewPage' }"
-          class="text-blue-600 text-sm font-medium hover:text-blue-700 transition-colors"
+          :to="{ name: (isAdmin || isInstructor) ? 'AdminScoreboardViewPage' : 'UserScoreboardViewPage' }"
+          class="text-blue-600 text-sm font-medium hover:text-blue-700 transition-colors whitespace-nowrap"
         >
           View All →
         </router-link>
@@ -73,9 +77,9 @@ const openUserProfile = (userId) => {
             'bg-yellow-400': entry.rank === 1,
             'bg-gray-100': entry.rank === 2,
             'hover:bg-gray-100': entry.rank > 2,
-            'cursor-pointer': isAdmin
+            'cursor-pointer': isAdmin || isInstructor
           }"
-          @click="isAdmin && entry.user && openUserProfile(entry.user.id)"
+          @click="(isAdmin || isInstructor) && entry.user && openUserProfile(entry.user.id)"
         >
           <!-- Rank -->
           <div class="w-8 h-8 flex items-center justify-center flex-shrink-0">

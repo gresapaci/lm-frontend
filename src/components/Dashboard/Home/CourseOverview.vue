@@ -30,11 +30,11 @@ const getThumbnailUrl = (thumbnail) => {
 <template>
   <div class="card h-full">
     <div class="card-body">
-      <div class="flex items-center justify-between mb-5">
+      <div class="flex items-center justify-between flex-wrap gap-2 mb-5">
         <h4 class="text-gray-500 text-lg font-semibold">Course Overview</h4>
         <router-link
           :to="{ name: 'AdminCourseViewPage' }"
-          class="text-blue-600 text-sm font-medium hover:text-blue-700 transition-colors"
+          class="text-blue-600 text-sm font-medium hover:text-blue-700 transition-colors whitespace-nowrap"
         >
           Manage Courses →
         </router-link>

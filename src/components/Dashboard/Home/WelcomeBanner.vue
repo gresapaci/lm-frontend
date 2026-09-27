@@ -15,6 +15,10 @@ defineProps({
   isAdmin: {
     type: Boolean,
     required: true
+  },
+  isInstructor: {
+    type: Boolean,
+    default: false
   }
 })
 </script>
@@ -32,6 +36,9 @@ defineProps({
           </p>
           <p class="text-gray-400 text-sm" v-else-if="isAdmin">
             Here's what's happening on your platform today.
+          </p>
+          <p class="text-gray-400 text-sm" v-else-if="isInstructor">
+            Here's how your courses are doing today.
           </p>
         </div>
         <div class="hidden lg:flex items-center">

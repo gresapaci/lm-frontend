@@ -4,8 +4,6 @@ import { useRouter } from 'vue-router'
 import { useToast } from 'vue-toastification'
 import { useUserStore } from '@/stores/useUserStore'
 import AuthRedirect from '@/components/Auth/General/AuthRedirect.vue'
-import EyeIcon from '@/assets/fonts/feather-icons/icons/eye.svg?component'
-import EyeOffIcon from '@/assets/fonts/feather-icons/icons/eye-off.svg?component'
 import Axios from '@/utils/axios'
 
 const router = useRouter()
@@ -76,8 +74,7 @@ const handleSubmit = async () => {
           @click="togglePasswordVisibility"
           class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600"
         >
-          <EyeIcon v-if="!showPassword" />
-          <EyeOffIcon v-else />
+          <i class="ti text-xl leading-none" :class="showPassword ? 'ti-eye-off' : 'ti-eye'"></i>
         </button>
       </div>
     </div>

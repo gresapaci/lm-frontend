@@ -151,7 +151,7 @@ const getStatusClass = (status) => {
     <div class="card">
       <div class="card-body">
         <!-- Header with Subtitle and Search bar -->
-        <div class="flex justify-between items-center mb-8">
+        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-8">
           <h3 class="text-lg font-semibold text-gray-800">
             Discover our {{ pagination?.total || 0 }} available courses
           </h3>
@@ -163,7 +163,7 @@ const getStatusClass = (status) => {
               :value="searchTerm"
               placeholder="Search..."
               @input="handleSearchInput($event.target.value)"
-              class="w-64 px-4 py-2 pl-10 pr-4 text-sm bg-white border border-gray-300 shadow rounded-full placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              class="w-full sm:w-64 px-4 py-2 pl-10 pr-4 text-sm bg-white border border-gray-300 shadow rounded-full placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
             <svg
               class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"

@@ -7,6 +7,10 @@ defineProps({
   isAdmin: {
     type: Boolean,
     required: true
+  },
+  isInstructor: {
+    type: Boolean,
+    default: false
   }
 })
 </script>
@@ -76,6 +80,41 @@ defineProps({
           >
             <i class="ti ti-chart-bar"></i>
             <span>Course Stats</span>
+          </router-link>
+
+          <router-link
+            :to="{ name: 'RandomGame' }"
+            class="quick-action-btn btn-red"
+          >
+            <i class="ti ti-dice"></i>
+            <span>Random Game</span>
+          </router-link>
+        </template>
+
+        <!-- Instructor Quick Actions -->
+        <template v-else-if="isInstructor">
+          <router-link
+            :to="{ name: 'AdminCourseViewPage' }"
+            class="quick-action-btn btn-blue"
+          >
+            <i class="ti ti-book"></i>
+            <span>Manage Courses</span>
+          </router-link>
+
+          <router-link
+            :to="{ name: 'AdminCourseStatsViewPage' }"
+            class="quick-action-btn btn-teal"
+          >
+            <i class="ti ti-chart-bar"></i>
+            <span>Course Stats</span>
+          </router-link>
+
+          <router-link
+            :to="{ name: 'AdminScoreboardViewPage' }"
+            class="quick-action-btn btn-amber"
+          >
+            <i class="ti ti-trophy"></i>
+            <span>Scoreboard</span>
           </router-link>
 
           <router-link

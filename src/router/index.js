@@ -72,12 +72,12 @@ const router = createRouter({
           }
         },
         {
-          path: '/sample-page',
-          name: 'SamplePage',
-          component: () => import('../views/Dashboard/SamplePage.vue'),
+          path: '/help',
+          name: 'HelpPage',
+          component: () => import('../views/Dashboard/HelpPage.vue'),
           meta: {
             requiresAuth: true,
-            title: "Sample Page"
+            title: "Help & FAQ"
           }
         },
         {
@@ -115,7 +115,7 @@ const router = createRouter({
           component: () => import('../views/Dashboard/Admin/Course/CourseView.vue'),
           meta: {
             requiresAuth: true,
-            requiresRole: "Admin",
+            requiresRole: ["Admin", "Instructor"],
             title: "Manage Courses"
           }
         },
@@ -125,7 +125,7 @@ const router = createRouter({
           component: () => import('../views/Dashboard/Admin/Course/CreateCourseView.vue'),
           meta: {
             requiresAuth: true,
-            requiresRole: "Admin",
+            requiresRole: ["Admin", "Instructor"],
             title: "Create Course"
           }
         },
@@ -135,7 +135,7 @@ const router = createRouter({
           component: () => import('../views/Dashboard/Admin/Course/EditCourseView.vue'),
           meta: {
             requiresAuth: true,
-            requiresRole: "Admin",
+            requiresRole: ["Admin", "Instructor"],
             title: "Edit Course"
           }
         },
@@ -145,7 +145,7 @@ const router = createRouter({
           component: () => import('../views/Dashboard/Admin/CourseModule/CourseModuleView.vue'),
           meta: {
             requiresAuth: true,
-            requiresRole: "Admin",
+            requiresRole: ["Admin", "Instructor"],
             title: "Manage Modules"
           }
         },
@@ -155,7 +155,7 @@ const router = createRouter({
           component: () => import('../views/Dashboard/Admin/CourseSection/CourseSectionView.vue'),
           meta: {
             requiresAuth: true,
-            requiresRole: "Admin",
+            requiresRole: ["Admin", "Instructor"],
             title: "Manage Sections"
           }
         },
@@ -165,7 +165,7 @@ const router = createRouter({
           component: () => import('../views/Dashboard/Admin/CourseMaterial/CourseSectionMaterialsView.vue'),
           meta: {
             requiresAuth: true,
-            requiresRole: "Admin",
+            requiresRole: ["Admin", "Instructor"],
             title: "Manage Materials"
           }
         },
@@ -195,7 +195,7 @@ const router = createRouter({
           component: () => import('../views/Dashboard/Admin/CourseStats/CourseStatsView.vue'),
           meta: {
             requiresAuth: true,
-            requiresRole: "Admin",
+            requiresRole: ["Admin", "Instructor"],
             title: "Course Statistics"
           }
         },
@@ -205,7 +205,7 @@ const router = createRouter({
           component: () => import('../views/Dashboard/Admin/Scoreboard/ScoreboardView.vue'),
           meta: {
             requiresAuth: true,
-            requiresRole: "Admin",
+            requiresRole: ["Admin", "Instructor"],
             title: "Scoreboard"
           }
         },
@@ -445,19 +445,11 @@ router.beforeEach(async (to, from, next) => {
 
     if (requiresRole) {
       const userRole = user?.roles?.[0]?.name
+      const allowedRoles = Array.isArray(requiresRole) ? requiresRole : [requiresRole]
 
-      if (userRole !== requiresRole) {
-        console.log(`Route requires ${requiresRole} role, user has ${userRole} role`)
-
-        if (userRole === 'Admin') {
-          return next({ name: "DashboardPage" })
-        }
-        else if (userRole === 'User') {
-          return next({ name: "DashboardPage" })
-        }
-        else {
-          return next({ name: "DashboardPage" })
-        }
+      if (!allowedRoles.includes(userRole)) {
+        console.log(`Route requires one of [${allowedRoles.join(', ')}] role, user has ${userRole} role`)
+        return next({ name: "DashboardPage" })
       }
     }
     // User is authenticated and has the required role

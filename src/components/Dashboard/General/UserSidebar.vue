@@ -4,8 +4,9 @@ import LogoLight from '@/assets/images/logos/logo-light.svg?component'
 
 <template>
   <div class="p-4">
-    <a href="../../" class="text-nowrap">
+    <a href="../../" class="flex items-center gap-2 text-nowrap text-[#111c2d] dark:text-white">
       <LogoLight />
+      <span class="text-xl font-bold">LM Academy</span>
     </a>
   </div>
   <div class="scroll-sidebar" data-simplebar="">
@@ -68,16 +69,16 @@ import LogoLight from '@/assets/images/logos/logo-light.svg?component'
 
         <li class="text-xs font-bold mb-4 mt-8">
           <i class="ti ti-dots nav-small-cap-icon text-lg hidden text-center"></i>
-          <span class="text-xs text-gray-400 font-semibold">EXTRA</span>
+          <span class="text-xs text-gray-400 font-semibold">SUPPORT</span>
         </li>
 
-        <li class="sidebar-item" :class="{ selected: $route.name === 'SamplePage' }">
+        <li class="sidebar-item" :class="{ selected: $route.name === 'HelpPage' }">
           <router-link
-            :to="{ name: 'SamplePage' }"
+            :to="{ name: 'HelpPage' }"
             class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full"
-            :class="{ active: $route.name === 'SamplePage' }"
+            :class="{ active: $route.name === 'HelpPage' }"
           >
-            <i class="ti ti-aperture ps-2 text-2xl"></i> <span>Sample Page</span>
+            <i class="ti ti-help ps-2 text-2xl"></i> <span>Help &amp; FAQ</span>
           </router-link>
         </li>
       </ul>

@@ -6,7 +6,7 @@ import { getProfileImageUrl } from '@/utils/backendHelper'
 const toast = useToast()
 
 const scoreboard = ref([])
-const loading = ref(false)
+const loading = ref(true)
 const error = ref(null)
 
 const getProfileImageUrlFromBackend = (imagePath) => {
@@ -71,15 +71,16 @@ onMounted(() => {
     <!-- Scoreboard Card -->
     <div class="w-full bg-white shadow-2xl p-4 rounded-2xl">
       <div class="mb-4 flex items-center justify-between">
-        <h5 class="text-xl font-bold">Progress in the live Scoreboard</h5>
-        <div class="flex items-center gap-2">
-          <span class="text-sm text-gray-600">Live</span>
-          <span class="w-2 h-2 bg-red-600 rounded-full animate-pulse"></span>
-        </div>
+        <h5 class="text-xl font-bold">Scoreboard Rankings</h5>
+      </div>
+
+      <!-- Loading -->
+      <div v-if="loading" class="flex justify-center py-10">
+        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
       </div>
 
       <!-- Scoreboard Table -->
-      <div v-if="!loading && scoreboard.length > 0">
+      <div v-else-if="scoreboard.length > 0">
         <table class="w-full text-sm text-left text-gray-500">
           <thead class="text-xs text-gray-700 uppercase rounded-lg border-b-[1px] border-gray-900">
             <tr>
@@ -103,6 +104,7 @@ onMounted(() => {
                     class="w-10 h-10 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center"
                   >
                     <img
+                      v-if="item.user"
                       :alt="`${item.user.first_name} ${item.user.last_name}`"
                       :src="getProfileImageUrlFromBackend(item.user.image)"
                       class="object-cover z-[999999]"
@@ -110,8 +112,8 @@ onMounted(() => {
                   </div>
 
                   <div>
-                    <div class="font-medium text-gray-900">{{ item.user.first_name || 'N/A' }}</div>
-                    <div class="font-medium text-gray-500">{{ item.user.last_name || 'N/A' }}</div>
+                    <div class="font-medium text-gray-900">{{ item.user?.first_name || 'N/A' }}</div>
+                    <div class="font-medium text-gray-500">{{ item.user?.last_name || 'N/A' }}</div>
                   </div>
                 </div>
               </td>
@@ -126,6 +128,11 @@ onMounted(() => {
             </tr>
           </tbody>
         </table>
+      </div>
+
+      <!-- Empty state -->
+      <div v-else class="text-center py-10">
+        <p class="text-gray-400 text-sm">No scoreboard data yet.</p>
       </div>
     </div>
   </div>

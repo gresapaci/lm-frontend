@@ -13,7 +13,7 @@ const isLoading = ref(false)
 
 // formData
 const formData = ref({
-  academicYear: new Date().getFullYear(),
+  academicYear: '',
   address: '',
   telephone: '',
   birthday: null,
@@ -23,15 +23,8 @@ const formData = ref({
 const profileImage = ref(null)
 const profileImagePreview = ref(null)
 
-const currentYear = new Date().getFullYear()
-const academicYearOptions = computed(() => {
-  const years = []
-
-  for (let i = 0; i < 10; i++) {
-    years.push(currentYear - i)
-  }
-  return years
-})
+// Academic year options (year of study, e.g. 1st-6th year)
+const academicYearOptions = computed(() => [1, 2, 3, 4, 5, 6])
 
 const handleImageSelect = (event) => {
   const file = event.target.files[0]
@@ -127,6 +120,7 @@ const handleSubmit = async () => {
         required
         :disabled="isLoading"
       >
+        <option value="" disabled>Select Year</option>
         <option v-for="year in academicYearOptions" :key="year" :value="year">
           {{ year }}
         </option>

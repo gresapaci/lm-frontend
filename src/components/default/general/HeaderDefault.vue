@@ -1,24 +1,34 @@
 <template>
-  <header>
-    <div class="flex justify-between items-center border-b-4 border-textPrimary py-4 px-4">
+  <header class="sticky top-0 z-30 bg-white shadow-sm">
+    <div class="flex justify-between items-center py-4 px-4 md:px-8">
       <!-- Logo -->
-      <h1 class="text-3xl md:text-5xl text-textPrimary">LM Academy</h1>
+      <router-link :to="{ name: 'HomePage' }" class="flex items-center gap-1 shrink-0">
+        <span class="text-2xl md:text-3xl font-extrabold text-[#0085db]">LM</span>
+        <span class="text-2xl md:text-3xl font-extrabold text-textPrimary">Academy</span>
+      </router-link>
 
       <!-- Desktop Navigation -->
-      <nav class="hidden md:flex text-2xl lg:text-3xl gap-2">
-        <router-link :to="{ name: 'HomePage' }" exact-active-class="border-b-textPrimary border-b-2"
-          >Home</router-link
+      <nav class="hidden md:flex items-center gap-1 text-base lg:text-lg font-medium">
+        <router-link
+          :to="{ name: 'HomePage' }"
+          class="px-4 py-2 rounded-full text-textPrimary hover:bg-[#0085db]/10 hover:text-[#0085db] transition-colors"
+          exact-active-class="!text-[#0085db] bg-[#0085db]/10"
         >
-        |
+          Home
+        </router-link>
         <router-link
           :to="{ name: 'AboutPage' }"
-          exact-active-class="border-b-textPrimary border-b-2"
-          >About Us</router-link
+          class="px-4 py-2 rounded-full text-textPrimary hover:bg-[#0085db]/10 hover:text-[#0085db] transition-colors"
+          exact-active-class="!text-[#0085db] bg-[#0085db]/10"
         >
-        |
-        <router-link :to="{ name: 'LoginPage' }" active-class="border-b-textPrimary border-b-2"
-          >Login</router-link
+          About Us
+        </router-link>
+        <router-link
+          :to="{ name: 'LoginPage' }"
+          class="btn ml-2 text-base px-6 py-2 shadow-md hover:shadow-lg hover:bg-[#0071c1] transition-all"
         >
+          Login
+        </router-link>
       </nav>
 
       <!-- Mobile Hamburger Button -->
@@ -45,7 +55,7 @@
     <!-- Mobile Navigation Overlay -->
     <div
       v-if="isMobileMenuOpen"
-      class="md:hidden fixed inset-0 bg-black bg-opacity-50 z-40"
+      class="md:hidden fixed inset-0 bg-black/50 z-40"
       @click="closeMobileMenu"
     ></div>
 
@@ -74,12 +84,12 @@
         </div>
 
         <!-- Navigation Links -->
-        <div class="flex flex-col px-6 py-4 space-y-4">
+        <div class="flex flex-col px-6 py-4 gap-2">
           <router-link
             :to="{ name: 'HomePage' }"
             @click="closeMobileMenu"
-            class="text-2xl text-textPrimary hover:text-gray-600 transition-colors duration-200"
-            active-class="text-blue-600 font-semibold"
+            class="text-lg font-medium text-textPrimary px-4 py-2.5 rounded-lg hover:bg-[#0085db]/10 hover:text-[#0085db] transition-colors"
+            exact-active-class="!text-[#0085db] bg-[#0085db]/10"
           >
             Home
           </router-link>
@@ -87,8 +97,8 @@
           <router-link
             :to="{ name: 'AboutPage' }"
             @click="closeMobileMenu"
-            class="text-2xl text-textPrimary hover:text-gray-600 transition-colors duration-200"
-            active-class="text-blue-600 font-semibold"
+            class="text-lg font-medium text-textPrimary px-4 py-2.5 rounded-lg hover:bg-[#0085db]/10 hover:text-[#0085db] transition-colors"
+            exact-active-class="!text-[#0085db] bg-[#0085db]/10"
           >
             About Us
           </router-link>
@@ -96,8 +106,7 @@
           <router-link
             :to="{ name: 'LoginPage' }"
             @click="closeMobileMenu"
-            class="text-2xl text-textPrimary hover:text-gray-600 transition-colors duration-200"
-            active-class="text-blue-600 font-semibold"
+            class="btn text-center text-base mt-2"
           >
             Login
           </router-link>

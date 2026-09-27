@@ -110,34 +110,31 @@ const handleRefresh = () => {
 // Role Change modal state
 const showRoleModal = ref(false)
 const selectedUser = ref(null)
-const newRole = ref('')
 
 const openRoleModal = (user) => {
   selectedUser.value = user
-  newRole.value = user.role === 'Admin' ? 'User' : 'Admin'
   showRoleModal.value = true
 }
 
 const closeRoleModal = () => {
   showRoleModal.value = false
   selectedUser.value = null
-  newRole.value = ''
 }
 
-const confirmRoleChange = async () => {
+const confirmRoleChange = async (role) => {
   if (!selectedUser.value) return
 
   try {
     const response = await Axios.post('users/change-role', {
       user_id: selectedUser.value.id,
-      role: newRole.value,
+      role,
     })
 
     if (response.data.success) {
       // Update the user in the local array
       const userIndex = users.value.findIndex((u) => u.id === selectedUser.value.id)
       if (userIndex !== -1) {
-        users.value[userIndex].role = newRole.value
+        users.value[userIndex].role = role
       }
 
       closeRoleModal()
@@ -247,7 +244,9 @@ onMounted(() => {
           'px-14 py-3 text-sm font-medium rounded-full border-0 cursor-pointer w-20 flex items-center justify-center transition-colors duration-200',
           row.role === 'Admin'
             ? 'bg-[#FFF6EA] text-[#F8C076] hover:bg-[#F8C076] hover:text-[#FFF6EA]'
-            : 'bg-[#FFEDE9] text-[#FB9984] hover:bg-[#FB9984] hover:text-[#FFEDE9]',
+            : row.role === 'Instructor'
+              ? 'bg-[#E5F3FB] text-[#0085DB] hover:bg-[#0085DB] hover:text-[#E5F3FB]'
+              : 'bg-[#FFEDE9] text-[#FB9984] hover:bg-[#FB9984] hover:text-[#FFEDE9]',
         ]"
       >
         {{ row.role }}
@@ -284,7 +283,7 @@ onMounted(() => {
 
   <RoleChangeModal
     :is-open="showRoleModal"
-    :new-role="newRole"
+    :current-role="selectedUser?.role"
     @close="closeRoleModal"
     @confirm="confirmRoleChange"
   />

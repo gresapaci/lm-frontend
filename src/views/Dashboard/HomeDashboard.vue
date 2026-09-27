@@ -14,6 +14,7 @@ import QuickActions from '@/components/Dashboard/Home/QuickActions.vue'
 const userStore = useUserStore()
 
 const isAdmin = computed(() => userStore.isAdmin)
+const isInstructor = computed(() => userStore.isInstructor)
 const isUser = computed(() => userStore.isUser)
 const firstName = computed(() => userStore.user?.first_name || 'there')
 
@@ -84,6 +85,7 @@ onMounted(() => {
       :firstName="firstName"
       :isUser="isUser"
       :isAdmin="isAdmin"
+      :isInstructor="isInstructor"
     />
 
     <!-- ==================== LOADING STATE ==================== -->
@@ -113,6 +115,7 @@ onMounted(() => {
         :dashboardData="dashboardData"
         :isUser="isUser"
         :isAdmin="isAdmin"
+        :isInstructor="isInstructor"
       />
 
       <!-- ==================== MAIN CONTENT GRID ==================== -->
@@ -126,9 +129,9 @@ onMounted(() => {
             :activeCourses="dashboardData.active_courses"
           />
 
-          <!-- ADMIN: Course Overview -->
+          <!-- ADMIN / INSTRUCTOR: Course Overview -->
           <CourseOverview
-            v-else-if="isAdmin"
+            v-else-if="isAdmin || isInstructor"
             :courseOverview="dashboardData.course_overview"
           />
         </div>
@@ -139,6 +142,7 @@ onMounted(() => {
             :scoreboardLoading="scoreboardLoading"
             :scoreboard="scoreboard"
             :isAdmin="isAdmin"
+            :isInstructor="isInstructor"
             :isUser="isUser"
             :myRank="dashboardData.my_rank"
           />
@@ -149,6 +153,7 @@ onMounted(() => {
       <QuickActions
         :isUser="isUser"
         :isAdmin="isAdmin"
+        :isInstructor="isInstructor"
       />
 
     </template>

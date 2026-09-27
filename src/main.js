@@ -4,6 +4,11 @@ import "vue-toastification/dist/index.css";
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
+// Apply saved theme immediately to avoid a flash of light mode on load
+if (localStorage.getItem('lm-theme') === 'dark') {
+    document.documentElement.classList.add('dark')
+}
+
 import App from './App.vue'
 import router from './router'
 import Toast from "vue-toastification"

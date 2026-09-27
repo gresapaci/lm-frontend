@@ -11,6 +11,10 @@ defineProps({
   isAdmin: {
     type: Boolean,
     required: true
+  },
+  isInstructor: {
+    type: Boolean,
+    default: false
   }
 })
 </script>
@@ -75,8 +79,8 @@ defineProps({
       </div>
     </div>
 
-    <!-- ============ ADMIN STATS CARDS ============ -->
-    <div v-else-if="isAdmin" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <!-- ============ ADMIN / INSTRUCTOR STATS CARDS ============ -->
+    <div v-else-if="isAdmin || isInstructor" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       <!-- Total Students -->
       <div class="stat-card card card-blue group hover:shadow-lg transition-all duration-300">
         <div class="card-body flex items-center gap-4">
