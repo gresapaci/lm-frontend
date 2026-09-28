@@ -42,7 +42,7 @@ const handleSubmit = async () => {
 }
 </script>
 <template>
-  <form @submit.prevent="handleSubmit">
+  <form method="post" autocomplete="on" @submit.prevent="handleSubmit">
     <!-- username -->
     <div class="mb-4">
       <label for="forEmail" class="block text-sm mb-2 text-gray-400">Email</label>
@@ -50,6 +50,8 @@ const handleSubmit = async () => {
         v-model="email"
         type="email"
         id="forEmail"
+        name="email"
+        autocomplete="username"
         placeholder="Enter e-mail address"
         class="py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-600 focus:ring-0"
         aria-describedby="hs-input-helper-text"
@@ -64,6 +66,8 @@ const handleSubmit = async () => {
           v-model="password"
           :type="showPassword ? 'text' : 'password'"
           id="forPassword"
+          name="password"
+          autocomplete="current-password"
           placeholder="Password"
           class="py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-600 focus:ring-0"
           aria-describedby="hs-input-helper-text"
